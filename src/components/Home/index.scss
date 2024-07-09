@@ -13,16 +13,17 @@
         color: #fff;
         font-size: 53px;
         font-family: 'Coolvetica';
-        font-weight: 400;
+        font-weight: 1000;
 
         &::before {
             content: '<h1>';
             font-family: 'La Belle Aurore';
             color: #ffd700;
-            font-size: 18px;
+            font-size: 30px;
             position: absolute;
             margin-top: -40px;
             left: 15px;
+            animation: fadeIn 1s backwards;
             opacity: 0.6;
         }
 
@@ -30,11 +31,11 @@
             content: '</h1>';
             font-family: 'La Belle Aurore';
             color: #ffd700;
-            font-size: 18px;
+            font-size: 30px;
             position: absolute;
-            margin-top: 18px;
+            margin-top: 6px;
             margin-left: 20px;
-            animation: fadeIn 1s 1.7s backwards;
+            animation: fadeIn 1s backwards;
             opacity: 0.6;
         }
 
@@ -52,7 +53,7 @@
         color: #8d8d8d;
         margin-top: 20px;
         font-weight: 400;
-        font-size: 11px;
+        font-size: 13px;
         font-family: sans-serif;
         letter-spacing: 3px;
         animation: fadeIn 1s 1.8s backwards;

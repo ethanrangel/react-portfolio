@@ -1,0 +1,43 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Use the version of Node.js that your project requires
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build the React app
+      run: npm run build
+
+    - name: Deploy to EC2
+      env:
+        SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+        EC2_USER: ec2-user
+        EC2_HOST: 3.209.161.8
+      run: |
+        echo "$SSH_KEY" > /tmp/ssh_key
+        chmod 600 /tmp/ssh_key
+        scp -o StrictHostKeyChecking=no -i /tmp/ssh_key -r build/* $EC2_USER@$EC2_HOST:/home/ec2-user/react-portfolio
+        ssh -o StrictHostKeyChecking=no -i /tmp/ssh_key $EC2_USER@$EC2_HOST << 'EOF'
+          cd /home/ec2-user/react-portfolio
+          git pull origin main
+          npm install
+          npm run build
+          pm2 restart react-app || pm2 start npm --name "react-app" -- run start
+          pm2 save
+        EOF

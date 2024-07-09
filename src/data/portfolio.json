@@ -1,0 +1,23 @@
+{
+    "portfolio": [
+        {
+            "cover": "/portfolio/1/two.png",
+            "title": "Web Scraping Matches",
+            "description": "Python, Pandas, Jupyter, DataFrames",
+            "url": "https://github.com/ethanrangel/football_data_analytics/blob/main/web_scraping.ipynb"
+        },
+        {
+            "cover": "/portfolio/1/three.png",
+            "title": "ML Match Predictor",
+            "description": "AI, Python, Machine Learning",
+            "url": "https://github.com/ethanrangel/football_data_analytics/blob/main/machine_learning.ipynb"
+        },
+        {
+            "cover": "/portfolio/1/one.png",
+            "title": "React Portfolio Website",
+            "description": "ReactJS, CI/CD, AWS, EC2, Route53",
+            "url": "https://github.com/ethanrangel/react-portfolio"
+        }
+    ]
+
+}
