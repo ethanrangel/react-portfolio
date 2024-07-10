@@ -29,6 +29,12 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Debug SSH Key
+      run: |
+        echo "$SSH_KEY" > /tmp/ssh_key
+        chmod 600 /tmp/ssh_key
+        cat /tmp/ssh_key
+
     - name: Deploy to EC2
       env:
         SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
@@ -50,6 +56,7 @@ jobs:
           pm2 restart react-app
           echo "Deployment finished."
         EOF
+
 
 
 
