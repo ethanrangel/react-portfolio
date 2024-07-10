@@ -13,6 +13,14 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Cache Node.js modules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
@@ -20,9 +28,6 @@ jobs:
 
     - name: Install dependencies
       run: npm install
-
-    - name: Build the React app
-      run: npm run build
 
     - name: Deploy to EC2
       env:
@@ -33,21 +38,18 @@ jobs:
         echo "$SSH_KEY" > /tmp/ssh_key
         chmod 600 /tmp/ssh_key
         echo "Starting SCP transfer..."
-        scp -o StrictHostKeyChecking=no -i /tmp/ssh_key -r build/* $EC2_USER@$EC2_HOST:/home/ec2-user/react-portfolio
+        scp -o StrictHostKeyChecking=no -i /tmp/ssh_key -r . $EC2_USER@$EC2_HOST:/home/ec2-user/react-portfolio
         echo "SCP transfer completed."
         echo "Starting SSH connection..."
-        ssh -o StrictHostKeyChecking=no -i /tmp/ssh_key -o ServerAliveInterval=60 $EC2_USER@$EC2_HOST << 'EOF'
+        ssh -o StrictHostKeyChecking=no -i /tmp/ssh_key $EC2_USER@$EC2_HOST << 'EOF'
           echo "Connected via SSH."
           cd /home/ec2-user/react-portfolio
-          echo "Running git pull..."
-          git pull origin main
           echo "Running npm install..."
           npm install
-          echo "Running npm run build..."
-          npm run build
-          echo "Restarting PM2 process..."
-          pm2 restart react-app || pm2 start npm --name "react-app" -- run start
+          echo "Starting React development server..."
+          pm2 restart react-app || pm2 start npm --name "react-app" -- start
           pm2 save
           echo "Deployment finished."
         EOF
+
 
