@@ -44,12 +44,15 @@ jobs:
         ssh -o StrictHostKeyChecking=no -i /tmp/ssh_key $EC2_USER@$EC2_HOST << 'EOF'
           echo "Connected via SSH."
           cd /home/ec2-user/react-portfolio
+          echo "Removing node_modules..."
+          rm -rf node_modules
           echo "Running npm install..."
           npm install
           echo "Restarting PM2 process..."
           pm2 restart react-app || pm2 start npm --name "react-app" -- start
           echo "Deployment finished."
         EOF
+
 
 
 
