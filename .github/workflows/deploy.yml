@@ -38,7 +38,7 @@ jobs:
         echo "$SSH_KEY" > /tmp/ssh_key
         chmod 600 /tmp/ssh_key
         echo "Starting SCP transfer..."
-        scp -o StrictHostKeyChecking=no -i /tmp/ssh_key -r . $EC2_USER@$EC2_HOST:/home/ec2-user/react-portfolio
+        scp -o StrictHostKeyChecking=no -i /tmp/ssh_key -r * $EC2_USER@$EC2_HOST:/home/ec2-user/react-portfolio
         echo "SCP transfer completed."
         echo "Starting SSH connection..."
         ssh -o StrictHostKeyChecking=no -i /tmp/ssh_key $EC2_USER@$EC2_HOST << 'EOF'
@@ -50,6 +50,7 @@ jobs:
           pm2 restart react-app
           echo "Deployment finished."
         EOF
+
 
 
 
