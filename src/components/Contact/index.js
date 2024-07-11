@@ -78,7 +78,7 @@ const Contact = () => {
                 </div>
             </div>
             <div className='info-map'>
-                Ethan Rangel,
+                Ethan Rangel-Torres,
                 <br />
                 The University of North Carolina at Charlotte,
                 <br />
