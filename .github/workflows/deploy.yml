@@ -20,11 +20,11 @@ jobs:
 
       - name: Copy files to EC2
         run: |
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no" --exclude '.git*' ./ ec2-user@your-elastic-ip:~/react-portfolio/
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" --exclude '.git*' ./ ec2-user@54.224.182.205:~/react-portfolio/
 
       - name: Install dependencies and restart PM2
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@your-elastic-ip <<EOF
+          ssh -o StrictHostKeyChecking=no ec2-user@54.224.182.205 <<EOF
           cd ~/react-portfolio
           npm install
           npm run build
