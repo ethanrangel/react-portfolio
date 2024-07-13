@@ -15,7 +15,7 @@
         {
             "cover": "/portfolio/1/one.png",
             "title": "React Portfolio Website",
-            "description": "ReactJS, CI/CD, AWS, EC2, Route53",
+            "description": "ReactJS, Pipeline, EC2, Elastic Beanstalk",
             "url": "https://github.com/ethanrangel/react-portfolio"
         }
     ]
